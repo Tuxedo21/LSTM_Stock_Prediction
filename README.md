@@ -6,11 +6,12 @@ Data: Stock data is obtained from kaggle.com for free
 Model:LSTM
 
 Procedure:
-  read data
-  preprocess data for Keras
-  Plot originall data
-  Specify the parametes
-  Fit model
-  Evaluate the model
-  Print the accuracy level
-  Plot the prediction vs original data
+Read data
+Preprocess data for Keras
+Plot originall data
+Specify the parametes
+Fit model
+Evaluate the model
+Print the accuracy level
+Plot the prediction vs original data
+
