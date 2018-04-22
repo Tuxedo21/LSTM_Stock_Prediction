@@ -1,6 +1,5 @@
-#@Kemal Guddeta
-#@Machine Learning and Pattern Recognition
-# LSTM for sp500 stock price prediction
+#@Kemal H Guddeta
+# Implementation of LSTM using keras tensorflow backend
 import os
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 import numpy
