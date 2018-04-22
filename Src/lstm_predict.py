@@ -7,11 +7,8 @@ import matplotlib.pyplot as plt
 from pandas import read_csv
 import math
 import keras
-from keras.models import Sequential
-from keras.layers import LSTM, LeakyReLU, Dense, Activation,Dropout
 from sklearn.preprocessing import MinMaxScaler
 from sklearn.metrics import mean_squared_error
-
 
 # convert an array of values into a dataset matrix
 def create_dataset(dataset, look_back=1):
@@ -49,17 +46,17 @@ trainX = numpy.reshape(trainX, (trainX.shape[0], 1, trainX.shape[1]))
 testX = numpy.reshape(testX, (testX.shape[0], 1, testX.shape[1]))
 
 def build_model(shape, neurons, dropout, decay):
-    model = Sequential()
-    model.add(LSTM(neurons[0], input_shape=(shape[0], shape[1]), return_sequences=True))
-    model.add(Dropout(dropout))
-    model.add(LSTM(neurons[1], input_shape=(shape[0], shape[1]), return_sequences=False))
-    model.add(Dropout(dropout))
-    model.add(Dense(neurons[2],kernel_initializer="uniform",activation='relu'))
-    model.add(Dense(neurons[3],kernel_initializer="uniform",activation='linear'))
-    adam = keras.optimizers.Adam(decay=decay)
-    model.compile(loss='mse',optimizer='adam', metrics=['accuracy'])
-    model.summary()
-    return model
+	model = keras.models.Sequential()
+    	model.add(keras.layers.LSTM(neurons[0], input_shape=(shape[0], shape[1]), return_sequences=True))
+    	model.add(keras.layers.Dropout(dropout))
+    	model.add(keras.layers.LSTM(neurons[1], input_shape=(shape[0], shape[1]), return_sequences=False))
+    	model.add(keras.layers.Dropout(dropout))
+    	model.add(keras.layers.Dense(neurons[2],kernel_initializer="uniform",activation='relu'))
+    	model.add(keras.layers.Dense(neurons[3],kernel_initializer="uniform",activation='linear'))
+    	adam = keras.optimizers.Adam(decay=decay)
+    	model.compile(loss='mse',optimizer='adam', metrics=['accuracy'])
+    	model.summary()
+    	return model
 
 #Set Configuration parametes
 shape = [1, 1, 1]
