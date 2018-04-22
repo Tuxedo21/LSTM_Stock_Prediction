@@ -9,18 +9,10 @@ from pandas import read_csv
 import math
 import keras
 from keras.models import Sequential
-from keras.layers import Dense, Activation,Dropout
-from keras.layers import LSTM,LeakyReLU
+from keras.layers import LSTM, LeakyReLU, Dense, Activation,Dropout
 from sklearn.preprocessing import MinMaxScaler
 from sklearn.metrics import mean_squared_error
-from matplotlib import pyplot
-from numpy import array
 
-shape = [1, 1, 1]
-neurons = [64, 64, 32, 1]
-dropout = 0.3
-decay = 0.5
-epochs = 10
 
 # convert an array of values into a dataset matrix
 def create_dataset(dataset, look_back=1):
@@ -70,6 +62,13 @@ def build_model(shape, neurons, dropout, decay):
     model.summary()
     return model
 
+#Set Configuration parametes
+shape = [1, 1, 1]
+neurons = [64, 64, 32, 1]
+dropout = 0.3
+decay = 0.5
+epochs = 10
+
 #Compile the model	
 model = build_model(shape, neurons, dropout, decay)
 
@@ -85,9 +84,8 @@ def model_score(model, X_train, y_train, X_test, y_test):
     print('Test Score: %.5f MSE (%.2f RMSE)' % (testScore[0], math.sqrt(testScore[0])))
     return trainScore[0], testScore[0]
 
-#Get test scores
+#Get test scores print
 model_score(model,trainX, trainY, testX, testY)
-
 
 # make predictions
 trainPredict = model.predict(trainX)
@@ -99,13 +97,10 @@ trainY = scaler.inverse_transform([trainY])
 testPredict = scaler.inverse_transform(testPredict)
 testY = scaler.inverse_transform([testY])
 
-
-# shift train predictions for plotting
+# shift train and test predictions for plotting
 trainPredictPlot = numpy.empty_like(dataset)
 trainPredictPlot[:, :] = numpy.nan
 trainPredictPlot[look_back:len(trainPredict)+look_back, :] = trainPredict
-
-# shift test predictions for plotting
 testPredictPlot = numpy.empty_like(dataset)
 testPredictPlot[:, :] = numpy.nan
 testPredictPlot[len(trainPredict)+(look_back*2)+1:len(dataset)-1, :] = testPredict
@@ -119,11 +114,3 @@ plt.xlabel('Time in Days')
 plt.ylabel('S&P500 Stock price ')
 plt.show()
 
-
-# PREDICT FUTURE VALUES
-last_val = testPredict[-1]
-last_val_scaled = last_val/last_val
-next_val = model.predict(numpy.reshape(last_val_scaled, (1,1,1)))
-print ("Last Day Value:", numpy.asscalar(last_val))
-print ("Next Day Value:", numpy.asscalar(last_val*next_val))
-print (numpy.append(last_val, next_val))
