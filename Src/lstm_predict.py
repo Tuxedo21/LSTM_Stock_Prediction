@@ -69,18 +69,24 @@ epochs = 10
 model = build_model(shape, neurons, dropout, decay)
 
 #Fit the model
-model.fit(trainX,trainY,batch_size=5,epochs=epochs,validation_split=0.2,verbose=1)
+model_return = model.fit(trainX,trainY,batch_size=5,epochs=epochs,validation_split=0.2,verbose=1)
+
+#Plot Loss functions(Train and Validation loss)
+history = model_return.history
+plt.plot(history['loss'], label = 'Training Loss', color = 'blue')
+plt.plot(history['val_loss'],label = 'Validation Loss', color='black')
+plt.legend(loc = 'upper right')
+plt.show()
 
 #Define function to get test score
 def model_score(model, X_train, y_train, X_test, y_test):
     trainScore = model.evaluate(X_train, y_train, verbose=0)
     print('Train Score: %.5f MSE (%.2f RMSE)' % (trainScore[0], math.sqrt(trainScore[0])))
-
     testScore = model.evaluate(X_test, y_test, verbose=0)
     print('Test Score: %.5f MSE (%.2f RMSE)' % (testScore[0], math.sqrt(testScore[0])))
     return trainScore[0], testScore[0]
 
-#Get test scores print
+#Call model_score to display train and test scores
 model_score(model,trainX, trainY, testX, testY)
 
 # make predictions
