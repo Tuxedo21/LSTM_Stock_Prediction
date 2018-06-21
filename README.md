@@ -1,9 +1,10 @@
 # LSTM_Stock_Prediction
+
 Implementation of LSTM to fit a model to predict future stock prices of selected 500 fortune companies. 
 
 Neural Network API's used: Keras tensorflow backend
 
-Data: Stock data is obtained from kaggle.com for free
+Data Source : Stock data was obtained from kaggle.com 
 
 Recurrent Neural Network Model : Long-Short Term Model (LSTM)
 
