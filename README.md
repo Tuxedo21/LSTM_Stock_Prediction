@@ -1,4 +1,4 @@
-# LSTM_Stock_Prediction
+# LSTM Stock Prediction For Flask Use
 
 Implementation of LSTM to fit a model that predicts future stock prices of selected 500 fortune companies. 
 
